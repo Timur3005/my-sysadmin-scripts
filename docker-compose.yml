@@ -1,0 +1,6 @@
+services:
+  app:
+    build: .
+    image: my-script
+    volumes:
+      - /var/log:/var/log:ro
