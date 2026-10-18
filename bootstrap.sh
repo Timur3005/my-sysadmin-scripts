@@ -91,6 +91,10 @@ cat /proc/mdstat
 sudo lvs
 df -h | grep -E "raid|logs" || echo "ВНИМАНИЕ: тома RAID/LVM не смонтированы"
 sudo systemctl status my-app --no-pager | head -5
-curl -ksf https://127.0.0.1/report.txt | head -8 || echo "ВНИМАНИЕ: report.txt не отдаётся"
+if curl -ksf -o /dev/null https://127.0.0.1/report.txt; then
+    curl -ks https://127.0.0.1/report.txt | head -8
+else
+    echo "ВНИМАНИЕ: report.txt не отдаётся"
+fi
 
 echo "bootstrap.sh: готово"
