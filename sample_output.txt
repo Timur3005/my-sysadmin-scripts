@@ -1,0 +1,30 @@
+============================================
+Отчёт сборщика логов
+============================================
+Дата:               2026-10-18 11:32:22
+Хост:               sysadmin-host
+Источник:           /var/log/syslog
+Ключевые слова:     error|fail|warn
+Всего строк в логе: 1013
+Найдено совпадений: 14
+
+--------------------------------------------
+Совпадения по ключевым словам
+--------------------------------------------
+error: 5
+fail: 6
+warn: 3
+
+--------------------------------------------
+Найденные строки
+--------------------------------------------
+Oct 18 08:26:25 sysadmin-host kernel: [    0.000000] NUMA: Failed to initialise from firmware
+Oct 18 08:26:25 sysadmin-host kernel: [    0.263207] GPT: Use GNU Parted to correct GPT errors.
+Oct 18 08:26:25 sysadmin-host kernel: [    3.134724] EXT4-fs (sda1): re-mounted. Opts: discard,errors=remount-ro. Quota mode: none.
+Oct 18 08:26:25 sysadmin-host kernel: [    5.442650] random: 237 urandom warning(s) missed due to ratelimiting
+Oct 18 08:26:25 sysadmin-host systemd[1]: Condition check resulted in Process error reports when automatic reporting is enabled (file watch) being skipped.
+Oct 18 08:26:25 sysadmin-host systemd[1]: Condition check resulted in Process error reports when automatic reporting is enabled (timer based) being skipped.
+Oct 18 08:26:25 sysadmin-host systemd[1]: Started Download data for packages that failed at package install time.
+Oct 18 08:26:25 sysadmin-host systemd[1]: Starting GRUB failed boot detection...
+Oct 18 08:26:25 sysadmin-host systemd[1]: Finished GRUB failed boot detection.
+Oct 18 08:26:26 sysadmin-host snapd[707]: autorepair.go:320: WARNING: the system booted with an old initrd without unlocked status reporting
