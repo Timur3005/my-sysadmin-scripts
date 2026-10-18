@@ -25,7 +25,7 @@ my-sysadmin-scripts/
 cat report.txt
 ```
 
-Переменные окружения (по умолчанию): `LOGFILE` (`/var/log/syslog`), `REPORT` (`report.txt`), `KEYWORDS` (`error|fail|warn`, регулярное выражение `grep -E` без учёта регистра).
+Переменные окружения (по умолчанию): `LOGFILE` (`/var/log/syslog`), `REPORT` (`report.txt`), `KEYWORDS` (`error|fail|warn` — список слов через `|` без групп и якорей; ищутся без учёта регистра, по каждому слову считается отдельный счётчик).
 
 Коды возврата: `0` — отчёт сформирован (в том числе без совпадений); `1` — лог не найден, нет прав на чтение или отчёт не записан (сообщение в stderr).
 
@@ -41,7 +41,7 @@ docker compose up --build                     # то же через compose
 
 ## Сервис
 
-- `my-app` — контейнер, созданный `docker create -p 8080:8080 --name my-app -v /var/log:/var/log:ro my-script` и запускаемый юнитом `systemd/my-app.service` (`enabled`, стартует после `docker.service`);
+- `my-app` — контейнер, созданный `docker create -p 127.0.0.1:8080:8080 --name my-app -v /var/log:/var/log:ro my-script` и запускаемый юнитом `systemd/my-app.service` (`enabled`, стартует после `docker.service`); порт 8080 опубликован только на `127.0.0.1`, снаружи сервис доступен лишь через nginx;
 - nginx (`nginx/my-app.conf`) принимает HTTPS с самоподписанным сертификатом `/etc/ssl/certs/my-app.crt` и проксирует на `127.0.0.1:8080`; HTTP отвечает редиректом 301.
 
 ## Подъём с нуля
@@ -54,7 +54,7 @@ cd my-sysadmin-scripts
 ./bootstrap.sh
 ```
 
-Скрипт без вопросов ставит Docker, собирает образ, создаёт RAID 1 (`/dev/md0` → `/mnt/raid`) и LVM (`vg_data/lv_logs` → `/mnt/logs`) на loop-устройствах, настраивает nginx + TLS и службу `my-app`, затем проверяет, что `https://127.0.0.1/` отвечает. Повторный запуск не трогает уже собранный RAID.
+Скрипт без вопросов ставит Docker, собирает образ, создаёт RAID 1 (`/dev/md0` → `/mnt/raid`) и LVM (`vg_data/lv_logs` → `/mnt/logs`) на loop-устройствах, настраивает nginx + TLS и службу `my-app`, затем проверяет, что `https://127.0.0.1/` отвечает. Повторный запуск не трогает уже собранный RAID, а после перезагрузки подключает существующие образы дисков заново, не затирая данные.
 
 ## Проверка
 
