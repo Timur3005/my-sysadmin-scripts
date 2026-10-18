@@ -11,4 +11,4 @@ RUN chmod +x /usr/local/bin/script.sh
 EXPOSE 8080
 # python3 работает как PID 1 и игнорирует SIGTERM; по SIGINT http.server завершается с кодом 0
 STOPSIGNAL SIGINT
-CMD ["/bin/bash", "-c", "/usr/local/bin/script.sh & exec python3 -m http.server 8080"]
+CMD ["/bin/bash", "-c", "/usr/local/bin/script.sh; exec python3 -m http.server 8080"]
